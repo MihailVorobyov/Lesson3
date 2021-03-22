@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CollectionsTest {
 	public static void main(String[] args) {
@@ -9,38 +7,22 @@ public class CollectionsTest {
 
 	private static void go() {
 		// Создать массив с набором слов (10-20 слов, должны встречаться повторяющиеся).
-		ArrayList<String> alWords = new ArrayList<>();
-		alWords.add("Аппаратура");
-		alWords.add("Безалаберный");
-		alWords.add("Волнообразный");
-		alWords.add("Воспалиться");
-		alWords.add("Газоубежище");
-		alWords.add("Королек");
-		alWords.add("Крыша");
-		alWords.add("Рогастый");
-		alWords.add("Тукать");
-		alWords.add("Тщедушный");
-		alWords.add("Аппаратура");
-		alWords.add("Безалаберный");
-		alWords.add("Рогастый");
-		alWords.add("Газоубежище");
-		alWords.add("Тщедушный");
-		alWords.add("Газоубежище");
+		String[] words = {"Аппаратура", "Безалаберный", "Волнообразный", "Воспалиться", "Газоубежище", "Королек",
+				"Крыша", "Рогастый", "Тукать", "Тщедушный", "Аппаратура", "Безалаберный", "Рогастый", "Газоубежище",
+				"Тщедушный", "Газоубежище"};
 
 		// Найти и вывести список уникальных слов, из которых состоит массив (дубликаты не считаем).
-		Set<String> hsWords = new HashSet<>(alWords);
-		System.out.println(hsWords);
+		Map<String, Integer> map = new HashMap<>();
+
+		for (String word : words) {
+			map.computeIfPresent(word, (key, val) -> val = val + 1);
+			map.putIfAbsent(word, 1);
+		}
+		System.out.println(map.keySet());
 
 		// Посчитать сколько раз встречается каждое слово.
-		int count;
-		for (String hs : hsWords) {
-			count = 0;
-			for (String word : alWords) {
-				if (word.equals(hs)) {
-					count++;
-				}
-			}
-			System.out.println("Слово \"" + hs + "\" встречается в ArrayList<String> strings " + count + " раз.");
-		}
+		System.out.println(map);
 	}
+
 }
+
